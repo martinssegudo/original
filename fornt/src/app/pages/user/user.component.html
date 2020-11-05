@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Nova Pessoa</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="formulario" (ngSubmit)="cadastrar()">
+          <div class="row">
+            <div class="col-md-8 pr-1 ">
+              <div class="form-group">
+                <label>Nome: *</label>
+                <input type="text" class="form-control" formControlName="nome"
+                       placeholder="Nome" value="Ex.: Luiz Martins">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8 pr-1">
+              <div class="form-group">
+                <label>CPF: *</label>
+                <input type="text" class="form-control"  formControlName="cpf"
+                       placeholder="CPF" value="Ex.: 111.111.111-11">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round">Salvar Pessoa</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">Lista de Pessoas Cadastradas</h5>
+      </div>
+      <div class="card-body">
+        <form *ngIf="(this.pessoas|async).length > 0">
+          <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <th>
+                Nome
+              </th>
+              <th>
+                CPF
+              </th>
+              <th>
+                Opções
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pessoa of this.pessoas|async">
+                <td>
+                  {{pessoa.nome}}
+                </td>
+                <td>
+                  {{pessoa.cpf}}
+                </td>
+                <td>
+                  <div class="row">
+                    <div class="col-md-2 col-2 text-right">
+                      <button class="btn btn-sm btn-outline-info btn-round btn-icon"
+                        (click)="editClick(pessoa)">
+                        <i class="nc-icon nc-circle-10"></i>
+                      </button>
+                    </div>
+                    <div class="col-md-2 col-2 text-right">
+                      <button class="btn btn-sm btn-outline-danger btn-round btn-icon"
+                              (click)="remover(pessoa)">
+                        <i class="nc-icon nc-simple-remove"></i>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </form>
+        <form *ngIf="(this.pessoas|async).length == 0">
+          {{'Nenhuma pessoa encontrada'}}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
